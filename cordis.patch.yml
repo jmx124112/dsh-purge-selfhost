@@ -2,7 +2,10 @@
   config:
     includeHarnessIdentity: false
     personaPrefix: ""
-    personaSuffix: Your working directory is {{cwd}}.
+    # 0.2.1 起 {{cwd}} 不再是已注册的提示词变量（只剩 provider / model，
+    # 由 dsh-agent-loop 注册）。留着会在组装 deployment:persona-suffix 时抛
+    # unknown prompt variable "{{cwd}}"，整轮对话直接失败。
+    personaSuffix: ""
 - insert:
     - id: dsh-purge
       name: 'dsh-purge'
