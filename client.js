@@ -95,7 +95,7 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 			{ key: "prompt", ids: [1, 2, 3, 4, 5, 25, 26, 32] },
 			{ key: "code", ids: [6, 7, 8] },
 			{ key: "engine", ids: [9, 10, 11, 12, 13, 14, 15, 16, 35] },
-			{ key: "tools", ids: [17, 18, 19, 21, 22, 23, 24, 29, 30, 31, 33, 34, 36, 37] },
+			{ key: "tools", ids: [17, 18, 19, 21, 22, 23, 24, 29, 33, 34, 36, 37] },
 			{ key: "compat", ids: [38, 39, 40] },
 		];
 
