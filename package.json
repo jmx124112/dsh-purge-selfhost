@@ -1,6 +1,6 @@
 {
   "name": "dsh-purge",
-  "version": "1.1.22",
+  "version": "1.0.0",
   "description": "本机 DeepSeek Harness 的可逆改写工具：42 个提示词与代码补丁点、shim 与注入文件、面板一键应用与回滚，路由带签名校验。",
   "type": "module",
   "main": "lib/index.js",

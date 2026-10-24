@@ -5,7 +5,7 @@
 
 ## 当前版本
 
-- `package.json` 的 version：`1.1.22`
+- `package.json` 的 version：`1.0.0`（自持分支自己的版本号，从 1.0 起算；上游基线是 1.1.22）
 - 更新通道由 `lib/update.js` 的 `SELF_HOSTED` 关闭；`REPO` 指向本仓库
 
 ## 已内联的本地定制
