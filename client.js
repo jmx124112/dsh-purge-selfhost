@@ -107,6 +107,7 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 			"purge.title": "补丁",
 			"override.title": "提示词",
 			"metric.purged": "补丁",
+			"metric.noTarget": "项无目标",
 			"metric.shim": "shim",
 			"metric.bak.yes": "有备份",
 			"metric.bak.no": "无备份",
@@ -283,6 +284,7 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 			"purge.title": "Patches",
 			"override.title": "Prompt",
 			"metric.purged": "Patches",
+			"metric.noTarget": "without target",
 			"metric.shim": "shim",
 			"metric.bak.yes": "Backup",
 			"metric.bak.no": "No backup",
@@ -568,7 +570,8 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 		}
 
 		function statusSettled(st) {
-			return st === "applied" || st === "already" || st === "skipped" || st === "missing_file";
+			// 只认真正写进去的状态；skipped / missing_file 表示目标不在当前版本，要暴露出来。
+			return st === "applied" || st === "already";
 		}
 
 		function shimKind(v) {
@@ -1137,7 +1140,10 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 			const total = s && s.patches_total ? s.patches_total : 26;
 			const applied = s && typeof s.patches_applied === "number" ? s.patches_applied : 0;
 			const skipped = s && typeof s.patches_skipped === "number" ? s.patches_skipped : 0;
-			const settled = Math.min(total, applied + skipped);
+			// 只有真正 applied 的才算完成。skipped / missing_file 是「目标不在当前版本里」，
+			// 混进来会让面板显示满分，掩盖掉实际没打上的补丁。
+			const settled = Math.min(total, applied);
+			const missing = Math.max(0, total - settled);
 			const pct = total ? Math.round((settled / total) * 100) : 0;
 
 			const hostSurface = hostSurfaceOf(s);
@@ -1224,7 +1230,7 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 				s ? h("div", { className: "dshp-metrics" },
 					h("div", { className: "dshp-metric" },
 						h("b", null, settled + " / " + total),
-						h("span", null, t("metric.purged")),
+						h("span", null, missing > 0 ? t("metric.purged") + " · " + missing + " " + t("metric.noTarget") : t("metric.purged")),
 					),
 					h("div", { className: "dshp-metric" },
 						h("b", { style: { fontSize: 13, fontFamily: "var(--dshp-mono)", fontWeight: 500 } },
