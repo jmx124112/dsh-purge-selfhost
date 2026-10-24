@@ -1,0 +1,23 @@
+- id: system-prompt
+  config:
+    includeHarnessIdentity: false
+    personaPrefix: ""
+    personaSuffix: Your working directory is {{cwd}}.
+- insert:
+    - id: dsh-purge
+      name: 'dsh-purge'
+      config:
+        enabled: true
+        autoApplyOnStart: true
+        autoUpdateOnStart: true
+        autoRevertOnMissing: false
+        injectOnce: false
+        stripMnemon: true
+        verbose: false
+        postPrompt: ""
+        postPromptOrder: 5100
+        autoRetry: true
+        retryMax: 3
+        autoContinue: true
+        continueMax: 3
+        continueText: "继续"
